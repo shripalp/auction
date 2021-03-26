@@ -38,7 +38,7 @@ class Listing(models.Model):
     starting_bid = models.DecimalField(max_digits=10, decimal_places=2)
     created_on = models.DateTimeField(auto_now=True)
     category = models.CharField(choices=item_categories, default=HOME, max_length=30)
-    image = models.ImageField(upload_to="media", blank=True)
+    #image = models.ImageField(upload_to="media", blank=True)
     url = models.URLField(max_length=500, blank=True)
     status = models.CharField(choices=status_categories, default=ACTIVE, max_length=2)
 

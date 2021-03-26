@@ -11,7 +11,7 @@ from .models import *
 class ListingForm(ModelForm):
     class Meta:
         model = Listing
-        fields = ['title', 'description', 'starting_bid', 'category', 'image', 'url']
+        fields = ['title', 'description', 'starting_bid', 'category', 'url']
         widgets = {
             'description':Textarea(attrs={'cols':60, 'rows':2}),
         }
@@ -124,7 +124,7 @@ def create(request):
             obj.description=form.cleaned_data['description']
             obj.starting_bid=form.cleaned_data['starting_bid']
             obj.category=form.cleaned_data['category']
-            obj.image=form.cleaned_data['image']
+            #obj.image=form.cleaned_data['image']
             obj.url=form.data['url']
             obj.save()
             
@@ -251,7 +251,7 @@ def categories(request):
     return render(request, "auctions/categories.html", {
         "categories": categories,
         "listings":listings,
-        "BASE_DIR":"image",
+        #"BASE_DIR":"image",
         "message":message
         
     })
