@@ -1,0 +1,73 @@
+body {
+    padding: 10px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.id {
+    font-size: 14px;
+    color:gray;
+}
+.item {
+    font-size: 20px;
+}
+
+.price {
+    color:green;
+}
+
+.date {
+    font-size: 16px;
+    color: gray;
+}
+
+.option {
+    width: 200px;
+    height: 40px;
+    margin: 40px;
+}
+
+.close {
+    background-color:blue,
+}
+.submit_button {
+    margin: 20px;
+    background-color:lightgreen;
+    border-radius: 12px;
+    width: 200px;
+    
+}
+.comment_button {
+    background-color:lightgoldenrodyellow;
+    border-radius: 12px;
+    margin-left: 50px;
+}
+
+.bid_button {
+    background-color: lightgreen;
+    border-radius: 12px;
+    margin-left: 50px;
+}
+.bid {
+    background-color: lightgreen;
+    border-radius: 12px;
+    margin-left: 20px;
+    width: 60px;
+}
+
+.closed {
+    color: red;
+}
+
+.fieldWrapper {
+    margin: 30px;
+}
+
+.center {
+    text-align: center;
+}
+
+.vertical {
+    vertical-align: text-bottom;

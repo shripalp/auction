@@ -1,0 +1,150 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Listing</h2>
+    <h3>
+        {% if listing.status == "AC" %}
+        ACTIVE
+        {% else %}
+        <p class="closed">CLOSED and the Winner is.......... {{current_bid.bidder.username}}!!</p>
+        {% endif %}
+    </h3>
+    <table class="table table-striped">
+       
+        <tbody>
+            
+            
+            <tr> 
+                <td>
+                    {% if listing.image %}
+                    <img src="{{BASE_DIR}}/{{ listing.image }}" height="150" width="150">
+                    {% endif %}
+                </td>
+                <td>
+                    {% if listing.url %}
+                    <img src="{{ listing.url }}" height="150" width="150">
+                    {% endif %}
+                </td>
+                <td>
+                    <ul>
+                        <li class="id">id: {{listing.id}}</li>
+                        <li class="item">{{listing.title}}</li>
+                        <li class="price">Starting Price:${{listing.starting_bid}}</li>
+                        <li class="description">{{listing.description}}</li> <br><br>
+                        <li class="date">Posted: {{listing.created_on}}</li>
+                        <li class="date">by: {{listing.created_by}}</li>
+                        <li>
+                        {% if user.is_authenticated %}
+                        {% if watched.watched_by.username == user_name %}
+                            <a class="nav-link" href="{% url 'auctions:watchlist_remove' listing.id %}">Remove from Watchlist</a>
+                        {% else %}
+                            <a class="nav-link" href="{% url 'auctions:watchlist_add' listing.id %}">Add to Watchlist</a>
+                        {% endif %}
+                        {% endif %}
+                        </li>
+                    </ul>
+                </td>
+               
+
+            </tr>
+            
+            
+
+        </tbody>
+    </table>
+
+
+
+            
+
+            
+
+    <h3> $ {{current_bid.bid_price}} </h3>
+           
+            {% if user.is_authenticated %}
+
+            {% if listing.created_by.username == user_name and listing.status == "AC" %}
+            
+            <form action = "{% url 'auctions:bid_close' listing.id %}" method="POST">
+                {% csrf_token %}
+
+                <p class="date">{{bid_count}} bid(s) so far, 
+                current bid is ${{current_bid.bid_price}}</p>
+                <button class="bid_button">Close the bid</button>
+               
+            </form>
+            {% endif %}
+            {% endif %}
+    <br>
+    <br>
+    <br>    
+            {% if user.is_authenticated %}
+            {% if listing.created_by.username != user_name and listing.status == "AC"%}
+
+
+
+            <p class="date">{{bid_count}} bid(s) so far....
+                {% if current_bid.bidder.username == user_name %}
+                your bid is current bid!!!
+                {% endif %}
+               
+            </p>
+            <form action = "{% url 'auctions:bid' listing.id %}" method="POST">
+                {% csrf_token %}
+               
+                {{ form.non_field_errors }}
+                <div class="fieldWrapper">
+                    {{ bid_form.bid_price.errors }}
+                    <label for="{{ bid_form.bid_price.id_for_label }}">Your Bid: $</label>
+                    {{ bid_form.bid_price }}
+                    <button class="bid">Bid</button>
+                </div>
+                
+                
+                
+            </form>
+            {% endif %}
+            {% endif %}
+
+    <br>
+    <br>
+    <br>    
+            
+
+            <form action = "{% url 'auctions:comments' listing.id %}" method="POST">
+                {% csrf_token %}
+                {{comment_form.as_p}}
+                <button class="comment_button">Comment</button>
+            </form>
+       
+    
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+
+    
+    <h3> Comments: </h3>
+    {% for comment in comments %}
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td>
+                    <ul>
+                        <li><p>{{ comment.comments }}</p>
+                            <p class="date">by {{ comment.comments_by }}</p>
+                            <p class="date">on {{ comment.commented_on}} </p>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    {% endfor %}
+
+        
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "auctions/layout.html" %}
+
+
+
+{% block body %}
+    <h2>Active Listings</h2>
+    <div class="container">
+    <table class="table table-striped">
+       
+        <tbody>
+            {% for listing in listings %}
+            
+            <tr> 
+                <td>
+                    {% if listing.image %}
+                    <img src="{{BASE_DIR}}/{{ listing.image }}" height="150" width="150">
+                    {% endif %}
+                </td>
+                <td>
+                    {% if listing.url %}
+                    <img src="{{ listing.url }}" height="150" width="150">
+                    {% endif %}
+                </td>
+                <td>
+                    <ul><a href="{% url 'auctions:listing' listing.id %}">
+                        
+                        <li class="item">{{listing.title}}</li></a>
+                        <li class="price">Price: ${{listing.starting_bid}}</li>
+                        <li class="description">{{listing.description}}</li><br><br>
+                    
+                        <li class="date">posted on: {{listing.created_on}}</li>
+                       
+                    </ul>
+                </td>
+            </tr>
+            
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endblock %}
